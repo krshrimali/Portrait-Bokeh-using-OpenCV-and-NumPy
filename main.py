@@ -1,3 +1,7 @@
+"""
+Author: Kushashwa Ravi Shrimali
+"""
+
 import cv2
 import sys # Arg Parsing, the easy way
 import numpy as np
@@ -90,7 +94,7 @@ class Image:
              
         # croppedImage = self.gray[int(roi[1]):int(roi[1] + roi[3]), \
         #        int(roi[0]):int(roi[0] + roi[2])]
-        blur = cv2.GaussianBlur(self.img_alpha, (13, 13), 0)
+        blur = cv2.GaussianBlur(self.img_alpha, (5, 5), 0)
         res = overlap(img_cropped, blur)
         return res
         '''
