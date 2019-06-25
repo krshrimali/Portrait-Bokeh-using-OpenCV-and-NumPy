@@ -33,5 +33,6 @@ Portrait Bokeh Implementation on Faces using OpenCV and NumPy in Python
 2. Add multiple face example.
 3. About the project.
 4. Make Flask project.
+5. More examples with different Gaussian Blur kernel sizes. 
 
 
