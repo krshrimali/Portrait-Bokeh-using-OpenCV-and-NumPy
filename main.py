@@ -106,7 +106,7 @@ class Image:
                 cv2.destroyAllWindows()
         return final_rois
 
-    def blur(self, kernel_size=5):
+    def blur(self, kernel_size=11):
         """
         :param kernel_size: int, kernel size for cv2.GaussianBlur
         :return: image, portrait-bokeh image
@@ -116,13 +116,13 @@ class Image:
         rois = self.face_detect()
         rois = self.choose(rois)
         img_cropped = generate_mask(self.img_alpha, rois)
-        blur_image = cv2.GaussianBlur(self.img_alpha, (5, 5), 0)
+        blur_image = cv2.GaussianBlur(self.img_alpha, (kernel_size, kernel_size), 0)
         res = overlap(img_cropped, blur_image)
         return res
 
 
 img_obj = Image(sys.argv[1])
-portrait_bokeh_image = img_obj.blur()
+portrait_bokeh_image = img_obj.blur(int(sys.argv[2]))
 print("BLUR SHAPE: ", portrait_bokeh_image.shape)
 cv2.imwrite("blur.png", portrait_bokeh_image)
 
