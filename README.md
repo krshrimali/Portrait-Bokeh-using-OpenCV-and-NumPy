@@ -2,6 +2,8 @@
 
 Portrait Bokeh Implementation on Faces using OpenCV and NumPy in Python
 
+<img src="portrait-bokeh-cover.jpg"/>
+
 ## What it does?
 
 1. Blurs everything **except** faces. 
