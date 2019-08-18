@@ -1,5 +1,11 @@
+"""
+Author: Kushashwa Ravi Shrimali
+Utility File for Portrait Bokeh
+"""
+
 import cv2
 import numpy as np
+
 
 def BGR2BGRA(img, ones=True, alpha=255):
     """
@@ -19,9 +25,11 @@ def BGR2BGRA(img, ones=True, alpha=255):
     img_BGRA = cv2.merge((b, g, r, alpha_channel))
     return img_BGRA
 
+
 def circ_func(x, y, r, c):
     return (x - c[0])**2 + (y - c[1])**2 - r**2 > 0
-    
+
+
 def crop_circle(img, roi):
     """
     Crop Circle
@@ -46,6 +54,7 @@ def crop_circle(img, roi):
                 img[i][j][3] = 0
     return img
 
+
 def generate_mask(img, rois):
     # Initialize with transparency levels
     for i in range(img.shape[0]):
@@ -55,14 +64,13 @@ def generate_mask(img, rois):
     for roi in rois:
         print(roi)
         roi = list(roi)
-        if(roi[2] != roi[3]):
-            if(roi[2] > roi[3]):
+        if roi[2] != roi[3]:
+            if roi[2] > roi[3]:
                 roi[2] = roi[3]
             else:
                 roi[3] = roi[2]
-        list_ = [int(roi[2]/2.0), [roi[0] + int(roi[2]/2.0), roi[1] + \
-                int(roi[3]/2.0)]]
-        if(i == 0):
+        list_ = [int(roi[2]/2.0), [roi[0] + int(roi[2]/2.0), roi[1] + int(roi[3]/2.0)]]
+        if i == 0:
             img_cropped = crop_circle(img, list_)
         else:
             img_cropped = crop_circle(img_cropped, list_)
@@ -70,17 +78,19 @@ def generate_mask(img, rois):
         i+=1
     return img_cropped
 
+
 def overlap(imgA, imgB):
-    if(imgA.shape != imgB.shape):
+    if imgA.shape != imgB.shape:
         print("Both should be 4 and equal")
-    
+        return -1
+
     img = np.zeros(imgA.shape, imgA.dtype)
 
     for i in range(imgA.shape[0]):
         for j in range(imgA.shape[1]):
-            if(imgA[i][j][3] == 255):
+            if imgA[i][j][3] == 255:
                 img[i][j] = imgA[i][j]
-            elif(imgA[i][j][3] == 0):
+            elif imgA[i][j][3] == 0:
                 img[i][j] = imgB[i][j]
                 img[i][j][3] = 255
 
