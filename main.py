@@ -106,7 +106,7 @@ class Image:
                 cv2.destroyAllWindows()
         return final_rois
 
-    def blur(self, kernel_size=11):
+    def blur(self, kernel_size=5):
         """
         :param kernel_size: int, kernel size for cv2.GaussianBlur
         :return: image, portrait-bokeh image
