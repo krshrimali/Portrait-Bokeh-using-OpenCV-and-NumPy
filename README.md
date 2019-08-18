@@ -24,15 +24,7 @@ Portrait Bokeh Implementation on Faces using OpenCV and NumPy in Python
 
 **Example for single face**:
 
-<center><img src="Kushashwa.PNG">Input Image</img></center>
-<center><img src="blur.png">Output after applying Portrait Bokeh</img></center>
-
-## TODOs
-
-1. Inline TODOs. 
-2. Add multiple face example.
-3. About the project.
-4. Make Flask project.
-5. More examples with different Gaussian Blur kernel sizes. 
-
-
+<img src="sample.png"/><center>Input Image</center>
+<img src="blur_5.png"/><center>Output after applying Portrait Bokeh (Kernel Size = 5)</center>
+<img src="blur_7.png"/><center>Output after applying Portrait Bokeh (Kernel Size = 7)</center>
+<img src="blur_9.png"/><center>Output after applying Portrait Bokeh (Kernel Size = 9)</center>
