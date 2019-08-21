@@ -22,6 +22,16 @@ Portrait Bokeh Implementation on Faces using OpenCV and NumPy in Python
 2. Press Y when asked, if you don't want the face to be blurred. Else press N.
 3. Output will be stored as blur.png in the same folder as the python file.
 
+## Example with Multiple Faces
+
+**Input Image**
+
+<img src="family.jpg">
+
+**Output Image (kernel size = 9)**
+
+<img src="blur.png">
+
 ## Example
 
 **Input Image**
