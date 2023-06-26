@@ -5,9 +5,9 @@ Author: Kushashwa Ravi Shrimali
 import cv2
 import sys # Arg Parsing, the easy way
 import numpy as np
-from utils import BGR2BGRA
-from utils import *
 
+sys.path.append('utils')
+from utils import *
 
 class Image:
     """
@@ -37,7 +37,7 @@ class Image:
         self.img_alpha = cv2.cvtColor(self.img, cv2.COLOR_RGB2RGBA)
 
         # For face detection
-        self.face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
         self.gray = None
 
     def __doc__(self):

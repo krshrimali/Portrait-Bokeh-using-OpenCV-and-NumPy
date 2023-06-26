@@ -6,7 +6,6 @@ Utility File for Portrait Bokeh
 import cv2
 import numpy as np
 
-
 def BGR2BGRA(img, ones=True, alpha=255):
     """
     Apply BGR to BGRA conversion
@@ -25,10 +24,8 @@ def BGR2BGRA(img, ones=True, alpha=255):
     img_BGRA = cv2.merge((b, g, r, alpha_channel))
     return img_BGRA
 
-
 def circ_func(x, y, r, c):
     return (x - c[0])**2 + (y - c[1])**2 - r**2 > 0
-
 
 def crop_circle(img, roi):
     """
@@ -54,7 +51,6 @@ def crop_circle(img, roi):
                 img[i][j][3] = 0
     return img
 
-
 def generate_mask(img, rois):
     # Initialize with transparency levels
     for i in range(img.shape[0]):
@@ -77,7 +73,6 @@ def generate_mask(img, rois):
         cv2.imwrite("img_cropped_"+str(i)+".png", img_cropped)
         i+=1
     return img_cropped
-
 
 def overlap(imgA, imgB):
     if imgA.shape != imgB.shape:
