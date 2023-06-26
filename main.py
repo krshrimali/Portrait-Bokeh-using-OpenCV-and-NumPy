@@ -114,7 +114,7 @@ class Image:
         # Select ROI
         # roi = self.roi_selector()
         rois = self.face_detect()
-        rois = self.choose(rois)
+        #rois = self.choose(rois)
         img_cropped = generate_mask(self.img_alpha, rois)
         blur_image = cv2.GaussianBlur(self.img_alpha, (kernel_size, kernel_size), 0)
         res = overlap(img_cropped, blur_image)
@@ -123,10 +123,10 @@ class Image:
 
 img_obj = Image(sys.argv[1])
 portrait_bokeh_image = img_obj.blur(int(sys.argv[2]))
-print("BLUR SHAPE: ", portrait_bokeh_image.shape)
-cv2.imwrite("blur.png", portrait_bokeh_image)
+#print("BLUR SHAPE: ", portrait_bokeh_image.shape)
+#cv2.imwrite("blur.png", portrait_bokeh_image)
 
-cv2.imshow("Input Image", img_obj.img)
-cv2.imshow("Portrait Bokeh Output", portrait_bokeh_image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+#cv2.imshow("Input Image", img_obj.img)
+#cv2.imshow("Portrait Bokeh Output", portrait_bokeh_image)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
