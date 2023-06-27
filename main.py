@@ -5,9 +5,9 @@ Author: Kushashwa Ravi Shrimali
 import cv2
 import sys # Arg Parsing, the easy way
 import numpy as np
-from utils import BGR2BGRA
-from utils import *
 
+sys.path.append('utils')
+from utils import *
 
 class Image:
     """
@@ -37,7 +37,7 @@ class Image:
         self.img_alpha = cv2.cvtColor(self.img, cv2.COLOR_RGB2RGBA)
 
         # For face detection
-        self.face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
         self.gray = None
 
     def __doc__(self):
@@ -114,9 +114,10 @@ class Image:
         # Select ROI
         # roi = self.roi_selector()
         rois = self.face_detect()
-        rois = self.choose(rois)
+        #rois = self.choose(rois)
         img_cropped = generate_mask(self.img_alpha, rois)
-        blur_image = cv2.GaussianBlur(self.img_alpha, (kernel_size, kernel_size), 0)
+        #blur_image = cv2.GaussianBlur(self.img_alpha, (kernel_size, kernel_size), 0)
+        blur_image = cv2.GaussianBlur(self.img_alpha, (kernel_size, kernel_size), 1000, 1000)
         res = overlap(img_cropped, blur_image)
         return res
 
@@ -126,7 +127,14 @@ portrait_bokeh_image = img_obj.blur(int(sys.argv[2]))
 print("BLUR SHAPE: ", portrait_bokeh_image.shape)
 cv2.imwrite("blur.png", portrait_bokeh_image)
 
-cv2.imshow("Input Image", img_obj.img)
-cv2.imshow("Portrait Bokeh Output", portrait_bokeh_image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# Ali: What if we create a template blank circular headshot 
+# of the size we want to show on the profile etc
+# Then we overlap our cropped head on that blank circle
+# keeping the center (x,y) of the two circles same
+# potentially we can fill the empty areas (if any) with blurred part of the headshot
+
+
+#cv2.imshow("Input Image", img_obj.img)
+#cv2.imshow("Portrait Bokeh Output", portrait_bokeh_image)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()

@@ -6,7 +6,6 @@ Utility File for Portrait Bokeh
 import cv2
 import numpy as np
 
-
 def BGR2BGRA(img, ones=True, alpha=255):
     """
     Apply BGR to BGRA conversion
@@ -25,10 +24,8 @@ def BGR2BGRA(img, ones=True, alpha=255):
     img_BGRA = cv2.merge((b, g, r, alpha_channel))
     return img_BGRA
 
-
 def circ_func(x, y, r, c):
     return (x - c[0])**2 + (y - c[1])**2 - r**2 > 0
-
 
 def crop_circle(img, roi):
     """
@@ -42,7 +39,8 @@ def crop_circle(img, roi):
     Returns
     :img: np.ndarray type (with cropped portion with alpha = 0.0 everything else 100.0)
     """
-    radius = roi[0]
+    # maybe we to cap the radius at the maxium width of the rectangular headshot 
+    radius = roi[0] * 1.7
     center = roi[1]
 
     for i in range(img.shape[0]):
@@ -53,7 +51,6 @@ def crop_circle(img, roi):
             elif(img[i][j][3] != 255):
                 img[i][j][3] = 0
     return img
-
 
 def generate_mask(img, rois):
     # Initialize with transparency levels
@@ -69,7 +66,12 @@ def generate_mask(img, rois):
                 roi[2] = roi[3]
             else:
                 roi[3] = roi[2]
-        list_ = [int(roi[2]/2.0), [roi[0] + int(roi[2]/2.0), roi[1] + int(roi[3]/2.0)]]
+        #list_ = [int(roi[2]/2.0), [roi[0] + int(roi[2]/2.0), roi[1] + int(roi[3]/2.0)]]
+        half_the_width  = int(roi[2]/2.0)
+        half_the_height = int(roi[3]/2.0)
+        box_x = roi[0]
+        box_y = roi[1]
+        list_ = [half_the_width, [box_x + half_the_width, box_y + half_the_height]]
         if i == 0:
             img_cropped = crop_circle(img, list_)
         else:
@@ -77,7 +79,6 @@ def generate_mask(img, rois):
         cv2.imwrite("img_cropped_"+str(i)+".png", img_cropped)
         i+=1
     return img_cropped
-
 
 def overlap(imgA, imgB):
     if imgA.shape != imgB.shape:
