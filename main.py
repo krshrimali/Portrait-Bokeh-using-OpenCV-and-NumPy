@@ -116,15 +116,23 @@ class Image:
         rois = self.face_detect()
         #rois = self.choose(rois)
         img_cropped = generate_mask(self.img_alpha, rois)
-        blur_image = cv2.GaussianBlur(self.img_alpha, (kernel_size, kernel_size), 0)
+        #blur_image = cv2.GaussianBlur(self.img_alpha, (kernel_size, kernel_size), 0)
+        blur_image = cv2.GaussianBlur(self.img_alpha, (kernel_size, kernel_size), 1000, 1000)
         res = overlap(img_cropped, blur_image)
         return res
 
 
 img_obj = Image(sys.argv[1])
 portrait_bokeh_image = img_obj.blur(int(sys.argv[2]))
-#print("BLUR SHAPE: ", portrait_bokeh_image.shape)
-#cv2.imwrite("blur.png", portrait_bokeh_image)
+print("BLUR SHAPE: ", portrait_bokeh_image.shape)
+cv2.imwrite("blur.png", portrait_bokeh_image)
+
+# Ali: What if we create a template blank circular headshot 
+# of the size we want to show on the profile etc
+# Then we overlap our cropped head on that blank circle
+# keeping the center (x,y) of the two circles same
+# potentially we can fill the empty areas (if any) with blurred part of the headshot
+
 
 #cv2.imshow("Input Image", img_obj.img)
 #cv2.imshow("Portrait Bokeh Output", portrait_bokeh_image)

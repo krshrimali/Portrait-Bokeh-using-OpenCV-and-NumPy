@@ -39,7 +39,8 @@ def crop_circle(img, roi):
     Returns
     :img: np.ndarray type (with cropped portion with alpha = 0.0 everything else 100.0)
     """
-    radius = roi[0]
+    # maybe we to cap the radius at the maxium width of the rectangular headshot 
+    radius = roi[0] * 1.7
     center = roi[1]
 
     for i in range(img.shape[0]):
@@ -65,7 +66,12 @@ def generate_mask(img, rois):
                 roi[2] = roi[3]
             else:
                 roi[3] = roi[2]
-        list_ = [int(roi[2]/2.0), [roi[0] + int(roi[2]/2.0), roi[1] + int(roi[3]/2.0)]]
+        #list_ = [int(roi[2]/2.0), [roi[0] + int(roi[2]/2.0), roi[1] + int(roi[3]/2.0)]]
+        half_the_width  = int(roi[2]/2.0)
+        half_the_height = int(roi[3]/2.0)
+        box_x = roi[0]
+        box_y = roi[1]
+        list_ = [half_the_width, [box_x + half_the_width, box_y + half_the_height]]
         if i == 0:
             img_cropped = crop_circle(img, list_)
         else:
